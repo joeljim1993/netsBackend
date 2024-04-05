@@ -14,7 +14,7 @@ export class User {
     name:string;
 
     @Prop({minlength:6,required:true })
-    paasword:string;
+    password:string;
 
     @Prop({ default:true })
     isActive: boolean;
