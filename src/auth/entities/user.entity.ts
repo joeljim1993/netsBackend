@@ -5,7 +5,8 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 export class User {
 
     // el id lo maneja mongo 
-    // _id:string;
+    _id?:string;
+
 
     @Prop({unique:true ,required:true })
     email:string;
@@ -14,7 +15,7 @@ export class User {
     name:string;
 
     @Prop({minlength:6,required:true })
-    password:string;
+    password?:string;
 
     @Prop({ default:true })
     isActive: boolean;

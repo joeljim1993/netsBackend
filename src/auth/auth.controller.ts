@@ -1,20 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import {CreateUserDto, LoginDto, RegisterUserDto, UpdateAuthDto } from './dto'
+import { AuthGuard } from './guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
+ 
   constructor(private readonly authService: AuthService) {}
 
   @Post()
   create(@Body() createAuthDto: CreateUserDto) {
     return this.authService.create(createAuthDto);
   }
+  
+  // peticion post para localhost/auth/login
+  @Post('/login')
+  login( @Body() loginDto:LoginDto){
+    console.log("loginDto",{ loginDto });
+    
+    return this.authService.login( loginDto)
+  }
 
+  @Post('/register')
+  register( @Body() registerDto : RegisterUserDto){
+    console.log("register");
+    
+    return this.authService.register(registerDto);
+  }
+
+    // @UseGuards( AuthGuard)
   @Get()
-  findAll() {
-    return this.authService.findAll();
+  findAll(){
+   return this.authService.findAll();
   }
 
   @Get(':id')
